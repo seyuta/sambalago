@@ -28,11 +28,22 @@ func ToJsonString(data interface{}) (jsonString string) {
 	return
 }
 
-// JsonToMap convert json to map
-func JsonToMap(jsonData []byte) (result map[string]interface{}) {
+// JsonToMapStrInterface convert json to map[string]interface{}
+func JsonToMapStrInterface(jsonData []byte) (result map[string]interface{}) {
 	err := json.Unmarshal(jsonData, &result)
 	if err != nil {
-		log.Printf("failed to convert data JsonToMap: [%#v] with error: [%v]\n", jsonData, err)
+		log.Printf("failed to convert data JsonToMapStrInterface: [%#v] with error: [%v]\n", jsonData, err)
+		return
+	}
+
+	return
+}
+
+// JsonToArrayOfInterface convert json to []interface{}
+func JsonToArrayOfInterface(jsonData []byte) (result []interface{}) {
+	err := json.Unmarshal(jsonData, &result)
+	if err != nil {
+		log.Printf("failed to convert data JsonToArrayOfInterface: [%#v] with error: [%v]\n", jsonData, err)
 		return
 	}
 

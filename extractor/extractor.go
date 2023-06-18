@@ -1,7 +1,10 @@
 package extractor
 
 import (
+	"fmt"
 	"log"
+	"path/filepath"
+	"runtime"
 	"strings"
 )
 
@@ -37,4 +40,34 @@ func FromMap(data interface{}, path string) (result interface{}) {
 	}
 
 	return
+}
+
+// CodeLocation just call this function and you will get func name, file path, and line number of code
+func CodeLocation() string {
+	var pc uintptr
+	var ok bool
+	pc, origFile, origLine, ok := runtime.Caller(1)
+	if !ok {
+		return ""
+	}
+
+	// get func name
+	fn := runtime.FuncForPC(pc)
+	name := fn.Name()
+	ix := strings.LastIndex(name, ".")
+	if ix > 0 && (ix+1) < len(name) {
+		name = name[ix+1:]
+	}
+	funcName := name
+
+	// get file path
+	nd, nf := filepath.Split(origFile)
+	fileName := filepath.Join(filepath.Base(nd), nf)
+
+	return fmt.Sprintf(
+		"inside function %s() | line: %v:%v",
+		funcName,
+		fileName,
+		origLine,
+	)
 }
