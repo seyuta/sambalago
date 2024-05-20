@@ -8,10 +8,10 @@ import (
 	"strings"
 )
 
-// FromMap extract value from map[string]interface{},
+// FromMapStrInterface extract value from map[string]interface{},
 // path for define nested json: key, key.key, key.key.key, and so on
 // example path: foo for single key or without nested, foo.bar for 1 nested, foo.bar.baz for 2 nested, and so on
-func FromMap(data interface{}, path string) (result interface{}) {
+func FromMapStrInterface(data interface{}, path string) (result interface{}) {
 	if data == nil {
 		log.Println("data is nil")
 		return
