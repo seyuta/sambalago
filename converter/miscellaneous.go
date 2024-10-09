@@ -68,3 +68,62 @@ func ToBool(value interface{}) (result bool) {
 		return false
 	}
 }
+
+// Function to convert int64 to roman numeral
+func Int64ToRoman(num int64) string {
+	romanMap := []struct {
+		value   int64
+		numeral string
+	}{
+		{1000, "M"},
+		{900, "CM"},
+		{500, "D"},
+		{400, "CD"},
+		{100, "C"},
+		{90, "XC"},
+		{50, "L"},
+		{40, "XL"},
+		{10, "X"},
+		{9, "IX"},
+		{5, "V"},
+		{4, "IV"},
+		{1, "I"},
+	}
+
+	result := ""
+
+	for _, item := range romanMap {
+		for num >= item.value {
+			result += item.numeral
+			num -= item.value
+		}
+	}
+
+	return result
+}
+
+// Function to convert roman numeral to int64
+func RomanToInt64(s string) int64 {
+	romanMap := map[byte]int64{
+		'M': 1000,
+		'D': 500,
+		'C': 100,
+		'L': 50,
+		'X': 10,
+		'V': 5,
+		'I': 1,
+	}
+
+	result := int64(0)
+	n := len(s)
+
+	for i := 0; i < n; i++ {
+		if i < n-1 && romanMap[s[i]] < romanMap[s[i+1]] {
+			result -= romanMap[s[i]]
+		} else {
+			result += romanMap[s[i]]
+		}
+	}
+
+	return result
+}
