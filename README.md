@@ -8,7 +8,7 @@ Sambalago aims to simplify your Go programming journey by offering a reliable se
 
 ## Installation
 
-Use the [Go Modules](https://go.dev/ref/mod) to install GoProBar.
+Use the [Go Modules](https://go.dev/ref/mod) to install Sambalago.
 
 ```bash
 go get github.com/seyuta/sambalago
