@@ -1,5 +1,10 @@
 package generator
 
+import (
+	"math/rand"
+	"time"
+)
+
 // GenerateCircularSequenceInRange function generates a circular sequence of integers within a specified range.
 // Parameters:
 // minVal: The minimum value allowed in the sequence (inclusive).
@@ -18,4 +23,21 @@ func GenerateCircularSequenceInRange(minVal, maxVal, startVal, amount int) []int
 	}
 
 	return sequence
+}
+
+// GenerateRandomNumber will generate random numbers with the desired number of digits
+func GenerateRandomNumber(digits int) int {
+	if digits <= 0 {
+		return 0
+	}
+
+	// Calculates the lower and upper limits for the desired number of digits.
+	min := 1
+	for i := 1; i < digits; i++ {
+		min *= 10
+	}
+	max := min*10 - 1
+
+	rand.Seed(time.Now().UnixNano())
+	return rand.Intn(max-min+1) + min
 }
