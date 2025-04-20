@@ -16,20 +16,20 @@ func BigFloatToPgNumeric(v *big.Float) *pgtype.Numeric {
 }
 
 // Function to convert pgtype.Numeric to big.Float for arithmetic operations with high accuracy and high precision
-func PgNumericToBigFloat(n pgtype.Numeric) *big.Float {
+func PgNumericToBigFloat(n pgtype.Numeric, precisionBits uint) *big.Float {
 	// Check if the value is valid
 	if !n.Valid {
 		return nil
 	}
 
 	// Convert to big.Float
-	intPart := new(big.Int).Set(n.Int)         // Integer part
-	floatVal := new(big.Float).SetInt(intPart) // Convert to big.Float
-	exp := int64(n.Exp)                        // Exponent
+	intPart := new(big.Int).Set(n.Int)                                // Integer part
+	floatVal := new(big.Float).SetInt(intPart).SetPrec(precisionBits) // Convert to big.Float
+	exp := int64(n.Exp)                                               // Exponent
 
 	// Calculate scale factor 10^exp
 	ten := big.NewInt(10)
-	scaleFactor := new(big.Float)
+	scaleFactor := new(big.Float).SetPrec(precisionBits)
 
 	if exp > 0 {
 		// 10^exp
